@@ -1,94 +1,133 @@
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Teacher Console</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" type="text/css" media ="screen"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" type="text/css" media ="screen"/>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
   </head>
   <body>
-    
     <div class="container">
-      <h2>Search:</h2>
-      <form action="/get_student">
-        <label for="github">Enter github id to search for a student</label>
-        <input type="text" name="github" />
-        <input type="submit">
-      </form>
-      <form action="/get_project">
-        <label for="project_title">Search project by title</label>
-        <input type="text" name="project_title" />
-        <input type="submit">
-      </form>
-      <h2>Add a new student by filling out the fields:</h2>
-      <form action="/add_student">
-        <label for="first_name">First Name</label>
-        <input type="text" name="first_name" />
+      <div class="row">
 
-        <label for="last_name">Last Name</label>
-        <input type="text" name="last_name" />
+        <!-- Search -->
+        <div class="span4 section search">
+          <h3>Search:</h3>
+          <form action="/get_student">
+            <label for="github">Search student by github ID</label>
+            <div class="input-append">
+              <input type="text" name="github" class="input-large" />
+              <input type="submit" class="btn" >
+            </div>
+          </form>
+          <form action="/get_project">
+            <label for="project_title">Search project by title</label>
+            <div class="input-append">
+              <input type="text" name="project_title" />
+              <input type="submit" class="btn" >
+            </div>
+          </form>
+        </div>
 
-        <label for="github">Github</label>
-        <input type="text" name="github" />
+        <!-- Add New Student-->
+        <div class="span4 section add">
+          <h3>Add New Student:</h3>
+          <form action="/add_student">
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name" />
 
-        <input type="submit">
-      </form>
-    </div>
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" />
 
-    <div class="container">
-      <h2>Add a new project by filling out the fields:</h2>
-      <form action="/add_project">
-        <label for="project_title">Project</label>
-        <input type="text" name="project" />
+            <label for="github">Github</label>
+            <input type="text" name="github" />
 
-        <label> Description</label>
-        <input type="text" name="desc" />
+            <br />
+            <input type="submit" class="btn" >
+          </form>
+        </div>
+          
+        <!-- Add New Project-->
+        <div class="span4 section add">
+          <h3>Add New Project:</h3>
+          <form action="/add_project">
+            <label for="project_title">Project Title</label>
+            <input type="text" name="project" />
 
-        <label> Max Grade</label>
-        <input type="text" name="max_grade" />
+            <label>Project Description</label>
+            <input type="text" name="desc" />
 
-        <input type="submit">
-      </form>
-    </div>
+            <label>Max Grade</label>
+            <input type="text" name="max_grade" />
 
-    <div class="container">
-      <h3><a href="/all_students">All Students</a></h3> <!-- make view panel -->
-
-      {% if all_students%}
-      <div class="sub-container">
-        <ol>
-          {%for student in students%}
-          <li>
-            <span><a href="/get_student?github={{student[2]}}"> {{student[2]}}:</a></span>
-            <span>{{student[1]}}</span>
-            <span>{{student[2]}}</span>
-          </li>
-          {%endfor%}
-        </ol>
+            <br />
+            <input type="submit" class="btn" >
+          </form>
+        </div>
       </div>
-      {%endif%}
 
-      <h3><a href="/all_projects">All Projects</a></h3>
 
-      {% if all_projects%}
-      <div class="sub-container">
-        <ol>
-          {%for project in projects%}
-          <li>
-            <span>{{project[0]}}: </span>
-            <span>{{project[1]}},</span>
-            <span>{{project[2]}}</span>
-          </li>
-          {%endfor%}
-        </ol>
-      </div>
-      {%endif%}
+      <!-- Navigation -->
+      <ul class="nav nav-pills">
+        <li class="{{active_students}}">
+          <a href="/all_students">All Students</a>
+        </li>
+        <li class="{{active_projects}}"><a href="/all_projects">All Projects</a></li>
+      </ul>
 
-    </div>  
-    
-    {% if view_project %}
-      <div class="container">
+      <!-- Show All Section -->
+      <div class="section show-all">
+     <!--   <h3><a href="/all_students">All Students</a></h3> <!-- make view panel -->
+
+        {% if all_students%}
+        <div class="sub-section">
+          <table class="table">
+            <tr>
+              <th>Github</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+            </tr>
+            {%for student in students%}
+            <tr> 
+              <td><a href="/get_student?github={{student[2]}}"> {{student[2]}}</a></td>
+              <td>{{student[1]}}</td>
+              <td>{{student[2]}}</td>
+            </tr>
+            {%endfor%}
+          </table>
+        </div>
+        {%endif%}
+
+     <!--   <h3><a href="/all_projects">All Projects</a></h3> -->
+
+        {% if all_projects%}
+        <div class="students">
+          <table class="table">
+            <tr>
+              <th>Project Title</th>
+              <th>Description</th>
+              <th>Max Grade</th>
+            </tr>
+            {%for project in projects%}
+            <tr>
+              <td><a href="/get_project?project_title={{project[0]}}"> {{project[0]}} </a></td>
+              <td>{{project[1]}}</td>
+              <td>{{project[2]}}</td>
+            </tr>
+            {%endfor%}
+          </table>
+        </div>
+        {%endif%}
+
+      </div>  
+      
+      {% if view_project %}
+      <div class="projects">
         <h3>{{title}}</h3>
         <p>{{description}}</p>
         <span>Max Grade: {{max_grade}}</span>
       </div>
-    {% endif %}
+      {% endif %}
 
+    </div>
   </body>
 </html>

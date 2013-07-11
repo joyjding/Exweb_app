@@ -66,13 +66,13 @@ def get_grades():
 def all_students():
     hackbright_app.connect_to_db()
     names = hackbright_app.show_all_students()
-    return render_template("main.html", all_students=True, students=names)
+    return render_template("main.html", all_students=True, active_students="active", students=names)
 
 @app.route("/all_projects")
 def all_projects():
     hackbright_app.connect_to_db()
     projects = hackbright_app.show_all_projects()
-    return render_template("main.html", all_projects=True, projects=projects)
+    return render_template("main.html", all_projects=True, active_projects="active", projects=projects)
 
 if __name__ == "__main__":
     app.run(debug=True)
