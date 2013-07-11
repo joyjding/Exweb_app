@@ -1,0 +1,22 @@
+<html>
+	<body>
+		<h1>{{first_name}} {{last_name}}</h1>
+		<h2>Github Account: {{github}}</h2>
+		<ul>
+		{% for grade in grades %}
+			<li><a href="/get_grades?project_title={{grade[0]}}">{{grade[0]}}: {{grade[1]}} </a></li>
+		{% endfor %}
+		</ul>
+    <h2>Add new project grade for {{first_name}}:</h2>
+    <form action="/add_grade?github={{github}}">
+      <label>Project Title</label>
+      <input type="text" name="project" />
+
+      <label>Grade</label>
+      <input type="text" name="grade" />
+
+      <input type=hidden name="github" value={{github}} />
+      <input type="submit">
+    </form>
+	</body>
+</html>

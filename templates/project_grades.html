@@ -1,0 +1,13 @@
+<html>
+	<body>
+		<h2>{{project_title}} Project Grades</h2>
+		<h3>Students that did this project:</h3>
+		<ul>
+		{% for grade in project_grades %}
+			<li><a href="/student?github={{grade[0]}}">{{grade[0].upper()}}</a>: {{grade[2]}}</li>
+		{% endfor %}
+		</ul>			
+	</body>
+</html>
+
+

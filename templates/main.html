@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body>
+    
+    <div class="container">
+      <h2>Search:</h2>
+      <form action="/get_student">
+        <label for="github">Enter github id to search for a student</label>
+        <input type="text" name="github" />
+        <input type="submit">
+      </form>
+      <form action="/get_project">
+        <label for="project_title">Search project by title</label>
+        <input type="text" name="project_title" />
+        <input type="submit">
+      </form>
+      <h2>Add a new student by filling out the fields:</h2>
+      <form action="/add_student">
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" />
+
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" />
+
+        <label for="github">Github</label>
+        <input type="text" name="github" />
+
+        <input type="submit">
+      </form>
+    </div>
+
+    <div class="container">
+      <h2>Add a new project by filling out the fields:</h2>
+      <form action="/add_project">
+        <label for="project_title">Project</label>
+        <input type="text" name="project" />
+
+        <label> Description</label>
+        <input type="text" name="desc" />
+
+        <label> Max Grade</label>
+        <input type="text" name="max_grade" />
+
+        <input type="submit">
+      </form>
+    </div>
+
+    <div class="container">
+      <h3><a href="/all_students">All Students</a></h3> <!-- make view panel -->
+
+      {% if all_students%}
+      <div class="sub-container">
+        <ol>
+          {%for student in students%}
+          <li>
+            <span><a href="/get_student?github={{student[2]}}"> {{student[2]}}:</a></span>
+            <span>{{student[1]}}</span>
+            <span>{{student[2]}}</span>
+          </li>
+          {%endfor%}
+        </ol>
+      </div>
+      {%endif%}
+
+      <h3><a href="/all_projects">All Projects</a></h3>
+
+      {% if all_projects%}
+      <div class="sub-container">
+        <ol>
+          {%for project in projects%}
+          <li>
+            <span>{{project[0]}}: </span>
+            <span>{{project[1]}},</span>
+            <span>{{project[2]}}</span>
+          </li>
+          {%endfor%}
+        </ol>
+      </div>
+      {%endif%}
+
+    </div>  
+    
+    {% if view_project %}
+      <div class="container">
+        <h3>{{title}}</h3>
+        <p>{{description}}</p>
+        <span>Max Grade: {{max_grade}}</span>
+      </div>
+    {% endif %}
+
+  </body>
+</html>
