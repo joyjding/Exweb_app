@@ -1,19 +1,23 @@
 <html>
 	 <head>
     <title>Student Info</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" type="text/css" media ="screen"/>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" type="text/css" media ="screen"/>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
   </head>
 	<body>
+		
 		<div class="container">
 			<div class="row">
-				<span class="span8 offset2">
-					<h1 class="header">{{first_name}} {{last_name}}</h1>
-				</span>
+        <div class="header">
+          <h1><i class="icon-user"></i> {{first_name}} {{last_name}}</h1>
+          <a class="main-nav" href="/"><i class="icon-home"></i> Home</a>
+        </div>
 
 				<div class="span4 offset2 section add">
-					<h3>Github: <span class="upper">{{github}}</span></h3>
+					<h3><i class="icon-github-sign"></i><span class="upper"><a href="https://github.com/{{github}}"> {{github}}</a> </span></h3>
 					<ul>
 					{% for grade in grades %}
 						<li class="bold"><a href="/get_grades?project_title={{grade[0]}}">{{grade[0]}}: {{grade[1]}} </a></li>
@@ -32,7 +36,7 @@
 				      <input type="text" name="grade" />
 
 				      <input type=hidden name="github" value={{github}} />
-				      <input type="submit">
+            <button type="submit" class="btn"><i class="icon-plus"></i> Add Grade</button>
 				    </form>
 			  </div>
 	  	</div>
